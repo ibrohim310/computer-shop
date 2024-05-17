@@ -3,11 +3,15 @@ import qrcode
 from io import BytesIO
 from django.core.files import File
 
+
+
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
     def __str__(self):
         return self.name
+
+
 
 class Product(models.Model):
     name = models.CharField(max_length=255)
@@ -37,6 +41,8 @@ class Enter(models.Model):
     def __str__(self):
         return f"{self.quantity} of {self.product.name} entered"
 
+
+
 class Out(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField()
@@ -44,6 +50,9 @@ class Out(models.Model):
 
     def __str__(self):
         return f"{self.quantity} of {self.product.name} sold"
+
+
+
 
 class Return(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)

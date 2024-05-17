@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from main import models
-from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponseRedirect
 import qrcode
 from io import BytesIO
 from django.core.files import File
@@ -119,8 +119,24 @@ def delete_category(request, category_id):
     models.Category.objects.get(id=category_id).delete()
     return HttpResponseRedirect(reverse('list_category'))
 
-#out
 
+#enter
+def enter_list(request):
+    # Barcha kirishlar ro'yxatini olish
+    enters = models.Enter.objects.all()
+    return render(request, 'enter/list.html', {'enters': enters})
+
+def enter_create(request):
+    if request.method == 'POST':
+        product_id = request.POST.get('product')
+        quantity = int(request.POST.get('quantity'))
+        product = models.Product.objects.get(id=product_id)
+        models.Enter.objects.create(product=product, quantity=quantity)
+        return redirect('enter_list')
+    products = models.Product.objects.all()
+    return render(request, 'enter/create.html', {'products': products})
+
+#out
 
 @login_required
 def sell_product(request):
