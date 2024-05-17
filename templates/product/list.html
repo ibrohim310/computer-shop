@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <!--app-content open-->
+    <div class="main-content app-content mt-0">
+        <div class="side-app">
+
+            <!-- CONTAINER -->
+            <div class="main-container container-fluid">
+
+                <!-- PAGE-HEADER -->
+                <div class="page-header">
+                    <h1 class="page-title">Mahsulotlar</h1>
+                </div>
+                <!-- PAGE-HEADER END -->
+                
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-3"></div>
+                    <div class="col-xl-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Mahsulotlar ro`yxati</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table text-nowrap text-md-nowrap mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>№</th>
+                                                <th>Nomi</th>
+                                                <th>O`zgartirish</th>
+                                                <th>O`chirish</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for product in products %}
+                                            <tr>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>{{ product.name }}</td>
+                                                <td><a href="{% url 'update_product' product.id %}" class="btn btn-icon btn-success" style="color: white;"><i class="fa fa-arrow-right"></i></a></td>
+                                                <td><a href="{% url 'delete_product' product.id %}" class="btn btn-icon btn-danger"><i class="fe fe-trash"></i></a></td>
+
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Row -->
+
+            </div>
+            <!-- CONTAINER CLOSED -->
+
+        </div>
+    </div>
+    <!--app-content close-->
+    
+{% endblock %}

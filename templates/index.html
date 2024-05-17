@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!--app-content open-->
+<div class="main-content app-content mt-0">
+    <div class="side-app">
+        <!-- CONTAINER -->
+        <div class="main-container container-fluid">
+            <!-- PAGE-HEADER -->
+            <div class="page-header">
+                <h1 class="page-title">Boshqaruv paneli</h1>
+            </div>
+            <!-- PAGE-HEADER END -->
+
+<!-- ROW-1 -->
+<div class="row">
+    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
+        <div class="card bg-primary img-card box-primary-shadow">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="text-white">
+                        <h2 class="mb-0 number-font">{{ enter_records|length }}</h2>
+                        <p class="text-white mb-0">Kiritishlar</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- COL END -->
+    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
+        <div class="card bg-secondary img-card box-secondary-shadow">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="text-white">
+                        <h2 class="mb-0 number-font">{{ out_records|length }}</h2>
+                        <p class="text-white mb-0">Chiqimlar</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- COL END -->
+    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
+        <div class="card bg-success img-card box-success-shadow">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="text-white">
+                        <h2 class="mb-0 number-font">{{ new_products|length }}</h2>
+                        <p class="text-white mb-0">Yangi mahsulotlar</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- COL END -->
+</div>
+<!-- ROW-1 END -->
+
+            <!-- ROW-1 END -->
+        </div>
+        <!-- CONTAINER END -->
+    </div>
+</div>
+<!--app-content close-->
+{% endblock %}

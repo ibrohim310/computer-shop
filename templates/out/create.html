@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!--app-content open-->
+<div class="main-content app-content mt-0">
+    <div class="side-app">
+
+        <!-- CONTAINER -->
+        <div class="main-container container-fluid">
+
+            <!-- PAGE-HEADER -->
+            <div class="page-header">
+                <h1 class="page-title">Mahsulotni sotish</h1>
+            </div>
+            <!-- PAGE-HEADER END -->
+
+            <!-- Row -->
+            <div class="row">
+                <div class='col-3'></div>
+                <div class="col-xl-6 col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Mahsulotni sotish</h3>
+                        </div>
+                        <form method='post' enctype="multipart/form-data"> 
+                            {% csrf_token %} 
+                            <div class="card-body pb-2">
+                                <div class="row row-sm">
+                                    <div class="col-lg">
+                                        <label>Mahsulot</label>
+                                        <select class="form-control select2" name="product">
+                                            {% for product in products %}
+                                            <option value="{{ product.id }}">{{ product.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row row-sm">
+                                    <div class="col-lg">
+                                        <label>Quantity</label>
+                                        <input class="form-control mb-4" placeholder="Quantity" type="number" name='quantity'>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-9"></div>
+                                    <div class="col">
+                                        <button class='btn btn-default btn-pill'>Sotish</button>  
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- End Row -->
+
+        </div>
+        <!-- CONTAINER CLOSED -->
+
+    </div>
+</div>
+<!--app-content close-->
+
+{% endblock %}
