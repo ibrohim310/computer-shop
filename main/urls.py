@@ -27,6 +27,7 @@ urlpatterns = [
     path('return_product/', views.return_product, name='return_product'),
 #login
     path('', views.user_login, name='login'),
+    path('logout/', views.user_logout, name='logout'),
 ]
 
 

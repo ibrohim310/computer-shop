@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login,logout
 from main import models
 from django.http import HttpResponseRedirect
 import qrcode
@@ -8,7 +8,7 @@ from io import BytesIO
 from django.core.files import File
 from django.urls import reverse
 
-@login_required
+@login_required(login_url='login')
 def report(request):
     enter_records = models.Enter.objects.all()
     out_records = models.Out.objects.all()
@@ -23,7 +23,7 @@ def report(request):
 
 
 #product
-@login_required
+@login_required(login_url='login')
 def add_product(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -54,7 +54,7 @@ def add_product(request):
     return render(request, 'product/create.html', {'categories': categories})
 
 
-@login_required
+@login_required(login_url='login')
 def update_product(request, product_id):
     product = models.Product.objects.get(id=product_id)
     if request.method == 'POST':
@@ -78,20 +78,20 @@ def update_product(request, product_id):
     categories = models.Category.objects.all()
     return render(request, 'product/update.html', {'product': product, 'categories': categories})
 
-
+@login_required(login_url='login')
 def delete_product(request, product_id):
     models.Product.objects.get(id=product_id).delete()
     return HttpResponseRedirect(reverse('list_product'))
 
 
-@login_required
+@login_required(login_url='login')
 def list_product(request):
     products = models.Product.objects.all()
     context = {'products': products}
     return render(request, 'product/list.html', context)
 
 #category
-
+@login_required(login_url='login')
 def create_category(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -100,10 +100,14 @@ def create_category(request):
             return redirect('list_category')
     return render(request, 'category/create.html')
 
+
+@login_required(login_url='login')
 def list_category(request):
     categories = models.Category.objects.all()
     return render(request, 'category/list.html', {'categories': categories})
 
+
+@login_required(login_url='login')
 def update_category(request, category_id):
     category = models.Category.objects.get(id=category_id)
     if request.method == 'POST':
@@ -114,17 +118,22 @@ def update_category(request, category_id):
             return redirect('list_category')
     return render(request, 'category/update.html', {'category': category})
 
+
+@login_required(login_url='login')
 def delete_category(request, category_id):
     models.Category.objects.get(id=category_id).delete()
     return HttpResponseRedirect(reverse('list_category'))
 
 
 #enter
+@login_required(login_url='login')
 def enter_list(request):
     # Barcha kirishlar ro'yxatini olish
     enters = models.Enter.objects.all()
     return render(request, 'enter/list.html', {'enters': enters})
 
+
+@login_required(login_url='login')
 def enter_create(request):
     if request.method == 'POST':
         product_id = request.POST.get('product')
@@ -135,9 +144,11 @@ def enter_create(request):
     products = models.Product.objects.all()
     return render(request, 'enter/create.html', {'products': products})
 
+
+
 #out
 
-@login_required
+@login_required(login_url='login')
 def sell_product(request):
     if request.method == 'POST':
         product_id = request.POST.get('product')
@@ -153,15 +164,17 @@ def sell_product(request):
     return render(request, 'out/create.html', {'products': products})
 
 
-@login_required
+@login_required(login_url='login')
 def list_cell_product(request):
     products = models.Product.objects.all()
     return render(request, 'out/list.html', {'products': products})
 
 
+
+
 #return
 
-@login_required
+@login_required(login_url='login')
 def return_product(request):
     if request.method == 'POST':
         product_id = request.POST.get('product')
@@ -177,7 +190,6 @@ def return_product(request):
     return render(request, 'return/create.html', {'products': products})
 
 
-
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -189,4 +201,10 @@ def user_login(request):
         else:
             return redirect('login')
     return render(request, 'login.html')
+
+
+@login_required(login_url='login')
+def user_logout(request):
+    logout(request)
+    return redirect('login')
 
