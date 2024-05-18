@@ -8,21 +8,20 @@ from io import BytesIO
 from django.core.files import File
 from django.urls import reverse
 
-
-
 @login_required
 def report(request):
-    start_date = request.GET.get('start_date')
-    end_date = request.GET.get('end_date')
-    
-    enter_records = models.Enter.objects.filter(date__range=[start_date, end_date])
-    out_records = models.Out.objects.filter(date__range=[start_date, end_date])
-    
+    enter_records = models.Enter.objects.all()
+    out_records = models.Out.objects.all()
+    new_products = models.Product.objects.filter(is_new=True)  # Yangi mahsulotlarni filtrlang
+
     context = {
         'enter_records': enter_records,
         'out_records': out_records,
+        'new_products': new_products,
     }
     return render(request, 'index.html', context)
+
+
 #product
 @login_required
 def add_product(request):
